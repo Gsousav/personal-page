@@ -198,7 +198,11 @@ const translations = {
             lang1: "Español",
             lang1level: "Nativo",
             lang2: "Inglés",
-            lang2level: "Fluido"
+            lang2level: "Fluido",
+            lang3: "Holandés",
+            lang3level: "Básico",
+            lang4: "Francés",
+            lang4level: "Básico"
         },
         contact: {
             title: "Trabajemos Juntos",
