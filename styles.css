@@ -389,6 +389,7 @@ body::before {
     background: transparent;
     color: var(--color-accent);
     -webkit-background-clip: unset;
+    background-clip: unset;
     -webkit-text-fill-color: unset;
 }
 
@@ -724,8 +725,16 @@ body::before {
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: var(--space-md);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
     transition: transform var(--transition);
+}
+
+.card-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .about-card:hover .card-icon {
@@ -963,7 +972,16 @@ body::before {
 .education-icon {
     font-size: 2.5rem;
     flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
     transition: transform var(--transition);
+}
+
+.education-icon svg {
+    width: 2.5rem;
+    height: 2.5rem;
 }
 
 .education-card:hover .education-icon {
@@ -1063,7 +1081,16 @@ body::before {
 
 .category-icon {
     font-size: 1.75rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent);
     transition: transform var(--transition);
+}
+
+.category-icon svg {
+    width: 1.75rem;
+    height: 1.75rem;
 }
 
 .skill-category:hover .category-icon {
