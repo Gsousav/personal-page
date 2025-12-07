@@ -5,7 +5,7 @@ const translations = {
     en: {
         nav: { about: "About", experience: "Experience", education: "Education", skills: "Skills", contact: "Get in Touch" },
         hero: {
-            badge: "Available for Opportunities", title1: "Gabriel Sousa", title2: "Automation & Intelligence",
+            badge: "Available for Opportunities", title1: "Gabriel Sousa", title2: "Finance & Process Optimization",
             subtitle: "Business Administration Professional specializing in Finance, Data Science & AI. I transform complex processes into efficient, automated solutions that drive measurable results.",
             stat1: "Faster Processing", stat2: "Response Rate", stat3: "Min Saved/Doc",
             cta1: "Let's Connect", cta2: "View My Work", scroll: "Scroll to explore"
@@ -70,7 +70,7 @@ const translations = {
     es: {
         nav: { about: "Sobre Mí", experience: "Experiencia", education: "Educación", skills: "Habilidades", contact: "Contacto" },
         hero: {
-            badge: "Disponible para Oportunidades", title1: "Gabriel Sousa", title2: "Automatización e Inteligencia",
+            badge: "Disponible para Oportunidades", title1: "Gabriel Sousa", title2: "Finanzas y Optimización de Procesos",
             subtitle: "Profesional en Administración de Empresas especializado en Finanzas, Ciencia de Datos e IA. Transformo procesos complejos en soluciones eficientes y automatizadas que generan resultados medibles.",
             stat1: "Procesamiento Más Rápido", stat2: "Tasa de Respuesta", stat3: "Min Ahorrados/Doc",
             cta1: "Conectemos", cta2: "Ver Mi Trabajo", scroll: "Desplázate para explorar"
