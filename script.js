@@ -24,7 +24,7 @@ const translations = {
                 date: "Feb 2025 – Aug 2025", title: "Office Administrator & Data Transfer", location: "Amsterdam, Netherlands",
                 detail1: "Provided customer service for document preparation and USB delivery",
                 detail2: "Automated compliance letter generation, eliminating errors and saving 10+ minutes per document",
-                detail3: "Created a document validator that's 500× faster than the previous manual process",
+                detail3: "Created a document validator that's 500× faster than the previous process",
                 detail4: "Optimized USB transfer workflows through automation, reducing errors and operational time"
             },
             job2: {
@@ -89,7 +89,7 @@ const translations = {
                 date: "Feb 2025 – Ago 2025", title: "Administrador de Oficina y Transferencia de Datos", location: "Amsterdam, Países Bajos",
                 detail1: "Brindé servicio al cliente en preparación de documentos y entrega de USB",
                 detail2: "Automaticé la generación de cartas de conformidad, eliminando errores y ahorrando más de 10 minutos por documento",
-                detail3: "Creé un validador de documentos 500× más rápido que el proceso manual anterior",
+                detail3: "Creé un validador de documentos 500× más rápido que el proceso anterior",
                 detail4: "Optimicé los flujos de transferencia de USB mediante automatización, reduciendo errores y tiempo operativo"
             },
             job2: {
