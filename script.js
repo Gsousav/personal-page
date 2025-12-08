@@ -5,7 +5,7 @@ const translations = {
     en: {
         nav: { about: "About", experience: "Experience", education: "Education", skills: "Skills", contact: "Get in Touch" },
         hero: {
-            badge: "Available for Opportunities", title1: "Gabriel Sousa", title2: "Finance & Process Optimization",
+            badge: "Available for Opportunities", title1: "Gabriel Sousa", title2: "Automation & Intelligence",
             subtitle: "Business Administration Professional specializing in Finance, Data Science & AI. I transform complex processes into efficient, automated solutions that drive measurable results.",
             stat1: "Faster Processing", stat2: "Response Rate", stat3: "Min Saved/Doc",
             cta1: "Let's Connect", cta2: "View My Work", scroll: "Scroll to explore"
@@ -24,7 +24,7 @@ const translations = {
                 date: "Feb 2025 – Aug 2025", title: "Office Administrator & Data Transfer", location: "Amsterdam, Netherlands",
                 detail1: "Provided customer service for document preparation and USB delivery",
                 detail2: "Automated compliance letter generation, eliminating errors and saving 10+ minutes per document",
-                detail3: "Created a document validator that's 500× faster than the previous process",
+                detail3: "Created a document validator that's 500× faster than the previous manual process",
                 detail4: "Optimized USB transfer workflows through automation, reducing errors and operational time"
             },
             job2: {
@@ -70,7 +70,7 @@ const translations = {
     es: {
         nav: { about: "Sobre Mí", experience: "Experiencia", education: "Educación", skills: "Habilidades", contact: "Contacto" },
         hero: {
-            badge: "Disponible para Oportunidades", title1: "Gabriel Sousa", title2: "Finanzas y Optimización de Procesos",
+            badge: "Disponible para Oportunidades", title1: "Gabriel Sousa", title2: "Automatización e Inteligencia",
             subtitle: "Profesional en Administración de Empresas especializado en Finanzas, Ciencia de Datos e IA. Transformo procesos complejos en soluciones eficientes y automatizadas que generan resultados medibles.",
             stat1: "Procesamiento Más Rápido", stat2: "Tasa de Respuesta", stat3: "Min Ahorrados/Doc",
             cta1: "Conectemos", cta2: "Ver Mi Trabajo", scroll: "Desplázate para explorar"
@@ -89,7 +89,7 @@ const translations = {
                 date: "Feb 2025 – Ago 2025", title: "Administrador de Oficina y Transferencia de Datos", location: "Amsterdam, Países Bajos",
                 detail1: "Brindé servicio al cliente en preparación de documentos y entrega de USB",
                 detail2: "Automaticé la generación de cartas de conformidad, eliminando errores y ahorrando más de 10 minutos por documento",
-                detail3: "Creé un validador de documentos 500× más rápido que el proceso anterior",
+                detail3: "Creé un validador de documentos 500× más rápido que el proceso manual anterior",
                 detail4: "Optimicé los flujos de transferencia de USB mediante automatización, reduciendo errores y tiempo operativo"
             },
             job2: {
@@ -366,23 +366,20 @@ document.querySelectorAll('.section-header, .timeline-item, .education-card, .ab
 });
 
 // ============================================
-// 3D Card Tilt Effect (Premium Touch)
+// 3D Card Lift Effect (Premium Touch)
 // ============================================
-const tiltCards = document.querySelectorAll('.about-card, .education-card, .timeline-content');
+const liftCards = document.querySelectorAll('.about-card, .education-card, .timeline-content');
 
-tiltCards.forEach(card => {
+liftCards.forEach(card => {
+    card.addEventListener('mouseenter', (e) => {
+        card.style.transform = 'translateY(-12px) translateZ(40px)';
+        card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+    });
+    
     card.addEventListener('mousemove', (e) => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-        
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-        
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
         
         // Update CSS custom properties for gradient effect
         card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
@@ -391,6 +388,8 @@ tiltCards.forEach(card => {
     
     card.addEventListener('mouseleave', () => {
         card.style.transform = '';
+        card.style.removeProperty('--mouse-x');
+        card.style.removeProperty('--mouse-y');
     });
 });
 

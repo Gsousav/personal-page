@@ -695,9 +695,10 @@ body::before {
     padding: var(--space-xl);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
-    transition: all var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    transform-style: preserve-3d;
 }
 
 .about-card::before {
@@ -707,34 +708,49 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 212, 191, 0.1), transparent);
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 212, 191, 0.15), transparent 60%);
     opacity: 0;
-    transition: opacity var(--transition);
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.about-card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(45, 212, 191, 0.05), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.6s ease;
+    pointer-events: none;
 }
 
 .about-card:hover::before {
     opacity: 1;
 }
 
+.about-card:hover::after {
+    opacity: 1;
+    animation: rotate 8s linear infinite;
+}
+
 .about-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-xl), var(--shadow-glow);
     border-color: var(--color-accent);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.12),
+        0 8px 16px rgba(0, 0, 0, 0.08),
+        0 0 0 1px rgba(45, 212, 191, 0.1),
+        0 0 40px rgba(45, 212, 191, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .card-icon {
     font-size: 2.5rem;
     margin-bottom: var(--space-md);
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
+    display: inline-block;
     transition: transform var(--transition);
-}
-
-.card-icon svg {
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
 .about-card:hover .card-icon {
@@ -829,8 +845,10 @@ body::before {
     padding: var(--space-xl);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
-    transition: all var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
 }
 
 .timeline-content::before {
@@ -841,18 +859,37 @@ body::before {
     width: 4px;
     height: 0;
     background: var(--color-accent);
-    border-radius: var(--radius-lg 0 0 var(--radius-lg));
-    transition: height var(--transition);
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+    transition: height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+}
+
+.timeline-content::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 212, 191, 0.08), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
 }
 
 .timeline-content:hover::before {
     height: 100%;
 }
 
+.timeline-content:hover::after {
+    opacity: 1;
+}
+
 .timeline-content:hover {
     border-color: var(--color-accent);
-    transform: translateX(8px);
-    box-shadow: var(--shadow-lg);
+    transform: translateX(8px) translateY(-4px);
+    box-shadow: 
+        0 15px 35px rgba(0, 0, 0, 0.1),
+        0 5px 15px rgba(0, 0, 0, 0.07),
+        0 0 0 1px rgba(45, 212, 191, 0.1),
+        -8px 0 30px rgba(45, 212, 191, 0.15);
 }
 
 .timeline-date {
@@ -952,15 +989,34 @@ body::before {
     padding: var(--space-xl);
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border);
-    transition: all var(--transition);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     transform-style: preserve-3d;
+    overflow: hidden;
+}
+
+.education-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(45, 212, 191, 0.12), transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
+}
+
+.education-card:hover::before {
+    opacity: 1;
 }
 
 .education-card:hover {
-    transform: translateY(-8px) rotateX(2deg);
-    box-shadow: var(--shadow-xl), var(--shadow-glow);
     border-color: var(--color-accent);
+    box-shadow: 
+        0 25px 50px rgba(0, 0, 0, 0.15),
+        0 10px 20px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(45, 212, 191, 0.15),
+        0 0 60px rgba(45, 212, 191, 0.25),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
 }
 
 .education-header {
@@ -972,16 +1028,7 @@ body::before {
 .education-icon {
     font-size: 2.5rem;
     flex-shrink: 0;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
     transition: transform var(--transition);
-}
-
-.education-icon svg {
-    width: 2.5rem;
-    height: 2.5rem;
 }
 
 .education-card:hover .education-icon {
@@ -1081,16 +1128,7 @@ body::before {
 
 .category-icon {
     font-size: 1.75rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-accent);
     transition: transform var(--transition);
-}
-
-.category-icon svg {
-    width: 1.75rem;
-    height: 1.75rem;
 }
 
 .skill-category:hover .category-icon {
