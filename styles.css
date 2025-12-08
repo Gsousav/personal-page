@@ -961,7 +961,6 @@ body::before {
     font-weight: 500;
     color: var(--color-accent-dark);
     transition: all var(--transition);
-    cursor: none;
 }
 
 .tag:hover {
