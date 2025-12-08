@@ -1487,6 +1487,8 @@ body::before {
     font-weight: 600;
     color: var(--color-text);
     transition: color var(--transition);
+    word-break: break-word;
+    overflow-wrap: break-word;
 }
 
 /* ============================================
@@ -1751,6 +1753,20 @@ footer::before {
     .contact-grid {
         grid-template-columns: 1fr;
     }
+    
+    .contact-item {
+        padding: var(--space-md);
+        min-width: 0; /* Allow flex items to shrink below content size */
+    }
+    
+    .contact-item > div {
+        min-width: 0; /* Allow text container to shrink */
+        flex: 1;
+    }
+    
+    .contact-value {
+        font-size: 0.9375rem;
+    }
 }
 
 @media (max-width: 480px) {
@@ -1788,5 +1804,25 @@ footer::before {
     
     .contact-header h2 {
         font-size: 1.875rem;
+    }
+    
+    .contact-item {
+        padding: var(--space-sm) var(--space-md);
+        gap: var(--space-sm);
+    }
+    
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+    }
+    
+    .contact-value {
+        font-size: 0.875rem;
+        line-height: 1.4;
+    }
+    
+    .contact-label {
+        font-size: 0.8125rem;
     }
 }
