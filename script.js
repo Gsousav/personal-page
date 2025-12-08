@@ -332,32 +332,111 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
-// Mobile Navigation
+// Mobile Navigation (Enhanced)
 // ============================================
 const navToggle = document.getElementById('navToggle');
 const navOverlay = document.getElementById('navOverlay');
 const navLinks = document.querySelectorAll('.nav-links a');
 
+let scrollPosition = 0;
+
 const closeNav = () => {
     navbar.classList.remove('open');
     document.body.classList.remove('no-scroll');
+    
+    // Restore scroll position
+    if (document.body.classList.contains('no-scroll')) {
+        document.body.style.top = '';
+        window.scrollTo(0, scrollPosition);
+    }
+    
     if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+    
+    // Remove focus from toggle button for better UX
+    navToggle?.blur();
 };
 
 const toggleNav = () => {
     const isOpen = navbar.classList.toggle('open');
-    document.body.classList.toggle('no-scroll', isOpen);
+    
+    if (isOpen) {
+        // Save current scroll position
+        scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Lock body scroll
+        document.body.classList.add('no-scroll');
+        document.body.style.top = `-${scrollPosition}px`;
+    } else {
+        // Unlock body scroll
+        document.body.classList.remove('no-scroll');
+        document.body.style.top = '';
+        window.scrollTo(0, scrollPosition);
+    }
+    
     if (navToggle) navToggle.setAttribute('aria-expanded', String(isOpen));
 };
 
-navToggle?.addEventListener('click', toggleNav);
-navOverlay?.addEventListener('click', closeNav);
-navLinks.forEach(link => link.addEventListener('click', closeNav));
+// Toggle menu
+navToggle?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleNav();
+});
+
+// Close on overlay click (outside menu)
+navOverlay?.addEventListener('click', () => {
+    if (navbar.classList.contains('open')) {
+        closeNav();
+    }
+});
+
+// Close on click outside menu (on document body)
+document.addEventListener('click', (e) => {
+    // Only handle if menu is open and we're on mobile
+    if (!navbar.classList.contains('open') || window.innerWidth > 768) {
+        return;
+    }
+    
+    // Check if click is outside the menu and not on the toggle button
+    const navLinksContainer = document.querySelector('.nav-links');
+    const clickedInsideMenu = navLinksContainer && navLinksContainer.contains(e.target);
+    const clickedOnToggle = navToggle && navToggle.contains(e.target);
+    
+    // If clicked outside menu and not on toggle, close the menu
+    if (!clickedInsideMenu && !clickedOnToggle) {
+        closeNav();
+    }
+});
+
+// Close on menu link click
+navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+            closeNav();
+        }
+    });
+});
+
+// Close on ESC key press
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && navbar.classList.contains('open')) {
+        closeNav();
+    }
+});
+
+// Close on window resize (if resizing to desktop)
 window.addEventListener('resize', () => {
     if (window.innerWidth > 768 && navbar.classList.contains('open')) {
         closeNav();
     }
 });
+
+// Prevent menu from closing when clicking inside it
+const navLinksContainer = document.querySelector('.nav-links');
+if (navLinksContainer) {
+    navLinksContainer.addEventListener('click', (e) => {
+        e.stopPropagation();
+    });
+}
 
 // ============================================
 // Scroll-Triggered Animations (Lando-style)
