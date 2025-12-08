@@ -73,6 +73,10 @@ body {
     overflow-x: hidden;
 }
 
+.no-scroll {
+    overflow: hidden;
+}
+
 /* ============================================
    Custom Cursor (Premium Touch)
    ============================================ */
@@ -152,6 +156,8 @@ body::before {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: var(--space-md);
+    position: relative;
 }
 
 .nav-logo .logo-text {
@@ -275,6 +281,62 @@ body::before {
 .lang-switcher:hover {
     border-color: var(--color-accent);
     transform: scale(1.05);
+}
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.nav-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 0.75rem;
+    border: 1.5px solid var(--color-border);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.75rem;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.nav-toggle span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--color-primary);
+    border-radius: 999px;
+    transition: transform var(--transition), opacity var(--transition);
+    transform-origin: center;
+}
+
+.nav-toggle:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+}
+
+.navbar.open .nav-toggle span:nth-child(1) {
+    transform: translateY(6px) rotate(45deg);
+}
+
+.navbar.open .nav-toggle span:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar.open .nav-toggle span:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+}
+
+.nav-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 31, 31, 0.35);
+    backdrop-filter: blur(6px);
+    z-index: 900;
 }
 
 /* ============================================
@@ -1476,6 +1538,16 @@ footer::before {
     }
 }
 
+@media (max-width: 900px) {
+    .nav-container {
+        align-items: center;
+    }
+    
+    .nav-links {
+        gap: var(--space-md);
+    }
+}
+
 @media (max-width: 768px) {
     :root {
         --container-padding: 1.25rem;
@@ -1483,12 +1555,56 @@ footer::before {
         --space-4xl: 5rem;
     }
     
-    .nav-links a:not(.nav-cta):not(.lang-switcher) {
-        display: none;
+    .nav-actions {
+        gap: var(--space-xs);
+    }
+    
+    .nav-toggle {
+        display: flex;
     }
     
     .nav-links {
-        gap: var(--space-md);
+        position: absolute;
+        top: calc(100% + 0.75rem);
+        right: var(--container-padding);
+        left: var(--container-padding);
+        flex-direction: column;
+        gap: var(--space-sm);
+        padding: var(--space-lg);
+        background: rgba(255, 255, 255, 0.96);
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(-10px);
+        transition: all var(--transition);
+        z-index: 950;
+    }
+    
+    .navbar.open .nav-links {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+    
+    .nav-links a {
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 0;
+    }
+    
+    .nav-links .nav-cta {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .navbar.open .nav-overlay {
+        display: block;
+    }
+    
+    .section {
+        padding: var(--space-3xl) var(--container-padding);
     }
     
     .hero {
@@ -1528,7 +1644,7 @@ footer::before {
     }
     
     .timeline-line {
-        left: -1.5rem;
+        left: 0;
     }
     
     .timeline-item {
@@ -1536,7 +1652,7 @@ footer::before {
     }
     
     .timeline-marker {
-        left: calc(-1.5rem - 7px);
+        left: -7px;
     }
     
     .about-cards {
@@ -1573,12 +1689,24 @@ footer::before {
         --container-padding: 1rem;
     }
     
+    .section {
+        padding: var(--space-2xl) var(--container-padding);
+    }
+    
     .nav-container {
         padding: 1rem;
     }
     
     .hero-title {
         font-size: 2rem;
+    }
+    
+    .hero-label {
+        font-size: 0.8125rem;
+    }
+    
+    .hero-description {
+        font-size: 1rem;
     }
     
     .section-title {

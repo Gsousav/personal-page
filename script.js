@@ -332,6 +332,34 @@ window.addEventListener('scroll', () => {
 });
 
 // ============================================
+// Mobile Navigation
+// ============================================
+const navToggle = document.getElementById('navToggle');
+const navOverlay = document.getElementById('navOverlay');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+const closeNav = () => {
+    navbar.classList.remove('open');
+    document.body.classList.remove('no-scroll');
+    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+};
+
+const toggleNav = () => {
+    const isOpen = navbar.classList.toggle('open');
+    document.body.classList.toggle('no-scroll', isOpen);
+    if (navToggle) navToggle.setAttribute('aria-expanded', String(isOpen));
+};
+
+navToggle?.addEventListener('click', toggleNav);
+navOverlay?.addEventListener('click', closeNav);
+navLinks.forEach(link => link.addEventListener('click', closeNav));
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 768 && navbar.classList.contains('open')) {
+        closeNav();
+    }
+});
+
+// ============================================
 // Scroll-Triggered Animations (Lando-style)
 // ============================================
 const observerOptions = {
@@ -370,28 +398,36 @@ document.querySelectorAll('.section-header, .timeline-item, .education-card, .ab
 // ============================================
 const liftCards = document.querySelectorAll('.about-card, .education-card, .timeline-content');
 
-liftCards.forEach(card => {
-    card.addEventListener('mouseenter', (e) => {
-        card.style.transform = 'translateY(-12px) translateZ(40px)';
-        card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
-    });
-    
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+if (matchMedia('(hover: hover)').matches) {
+    liftCards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-12px) translateZ(40px)';
+            card.style.transition = 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)';
+        });
         
-        // Update CSS custom properties for gradient effect
-        card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-        card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Update CSS custom properties for gradient effect
+            card.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+            card.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.removeProperty('--mouse-x');
+            card.style.removeProperty('--mouse-y');
+        });
     });
-    
-    card.addEventListener('mouseleave', () => {
+} else {
+    liftCards.forEach(card => {
         card.style.transform = '';
         card.style.removeProperty('--mouse-x');
         card.style.removeProperty('--mouse-y');
     });
-});
+}
 
 // ============================================
 // Magnetic Button Effect
@@ -425,18 +461,20 @@ magneticElements.forEach(el => {
 const heroGrid = document.querySelector('.hero-grid');
 const heroContent = document.querySelector('.hero-content');
 
-window.addEventListener('scroll', () => {
-    const scrolled = window.pageYOffset;
-    const parallaxSpeed = 0.5;
-    
-    if (heroGrid) {
-        heroGrid.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
-    }
-    if (heroContent && scrolled < window.innerHeight) {
-        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
-        heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
-    }
-});
+if (window.innerWidth > 768) {
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const parallaxSpeed = 0.5;
+        
+        if (heroGrid) {
+            heroGrid.style.transform = `translateY(${scrolled * parallaxSpeed}px)`;
+        }
+        if (heroContent && scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+            heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+        }
+    });
+}
 
 // ============================================
 // Smooth Number Counter Animation
